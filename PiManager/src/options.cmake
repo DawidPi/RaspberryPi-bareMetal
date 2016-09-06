@@ -1,0 +1,1 @@
+set(QT5_PACKAGE_DIR "" CACHE FILEPATH "path to the place, where package to the QT5_Dir exists, so that cmake can find package")
