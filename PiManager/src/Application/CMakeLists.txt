@@ -11,4 +11,5 @@ set(SOURCES
         )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
+add_dependencies(${PROJECT_NAME} Common Widgets)
 target_link_libraries(${PROJECT_NAME} Qt5::Widgets)
