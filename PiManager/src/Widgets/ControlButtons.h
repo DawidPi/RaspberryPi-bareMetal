@@ -8,22 +8,70 @@
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QPushButton>
 
-//todo add documentation
 
+/*!
+ *  \brief Widget with 3 buttons horizontally aligned.
+ *  Buttons are responsible for managing RaspberryPi
+ *  activities.
+ *
+ *  Buttons are responsible for invoking actions like
+ *  start/stop program, connect to raspberryPi or
+ *  flash new program to RaspberryPi
+ */
 class ControlButtons : public QWidget {
 Q_OBJECT
 public:
-    ControlButtons();
-
     ControlButtons(const ControlButtons &rhs) = delete;
-
     ControlButtons(ControlButtons &&rhs) = delete;
 
+    /*!
+     * The only constructor available.
+     *
+     * @param parent parent widget (as all QWidgets have please refer to Qt documentation)
+     */
+    ControlButtons(QWidget *parent = nullptr);
+
+    /*!
+     * Enum represents states of the program, which are possible (in terms of RaspberryPi activities)
+     */
     enum class States {
-        NOT_CONNECTED, CONNECTED, RUNNING, FLASHING
+        NOT_CONNECTED, /*! < RaspberryPi is not yet connected */
+        CONNECTED, /*! < RaspberryPi connected, but neither flashing nor program is currently running */
+        RUNNING, /*! < RaspberryPi's flashed program is running */
+        FLASHING /*! < RaspberryPi's flashing program is currently running */
     };
 
+    /*!
+     * Sets state of the program. This makes buttons greyed-out properly and
+     * allows for text on buttons be set correctly.
+     *
+     * @param newState new State of the RaspberryPi management
+     */
     void setNewStatus(States newState);
+
+    virtual ~ControlButtons() {};
+
+Q_SIGNALS:
+
+    /*!
+     * SIGNAL on start Button pressed
+     */
+    void startButtonPressed();
+
+    /*!
+     * SIGNAL on stop Button pressed
+     */
+    void stopButtonPressed();
+
+    /*!
+     * SIGNAL on flash Button pressed
+     */
+    void flashButtonPressed();
+
+    /*!
+     * SIGNAL on connect Button pressed
+     */
+    void connectButtonPressed();
 
 private:
 

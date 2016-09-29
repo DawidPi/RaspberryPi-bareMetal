@@ -6,7 +6,7 @@
 #include <QtWidgets/QBoxLayout>
 #include "ControlButtons.h"
 
-ControlButtons::ControlButtons() {
+ControlButtons::ControlButtons(QWidget *parent) : QWidget(parent) {
     mStartStopButton = (new QPushButton(mStartStopButtonText));
     mConnectButton = (new QPushButton(mConnectButtonText));
     mFlashButton = (new QPushButton(mFlashButtonText));
