@@ -3,20 +3,26 @@
 //
 
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QBoxLayout>
 #include "ControlButtons.h"
 
 ControlButtons::ControlButtons() {
-    setNewStatus(States::NOT_CONNECTED);
+    mStartStopButton = (new QPushButton(mStartStopButtonText));
+    mConnectButton = (new QPushButton(mConnectButtonText));
+    mFlashButton = (new QPushButton(mFlashButtonText));
 
-    mButtons.addButton(new QPushButton(""));
-    mButtons.addButton(new QPushButton(mFlashButtonText));
-    mButtons.addButton(new QPushButton(""));
+    QBoxLayout *horizontalBoxLayout = new QBoxLayout(QBoxLayout::LeftToRight);
+
+    horizontalBoxLayout->addWidget(mConnectButton);
+    horizontalBoxLayout->addWidget(mStartStopButton);
+    horizontalBoxLayout->addWidget(mFlashButton);
+
+    setLayout(horizontalBoxLayout);
 
     setNewStatus(States::NOT_CONNECTED);
 }
 
 void ControlButtons::setNewStatus(ControlButtons::States newState) {
-    clearAllButtons();
 
     switch (newState) {
         case States::CONNECTED:
@@ -32,60 +38,40 @@ void ControlButtons::setNewStatus(ControlButtons::States newState) {
             setButtonsForNotConnected();
             break;
     }
-
-}
-
-void ControlButtons::clearAllButtons() {
-    for (auto buttonPtr : mButtons.buttons()) {
-        mButtons.removeButton(buttonPtr);
-    }
 }
 
 void ControlButtons::setButtonsForConnected() {
-    getConnectButton().setCheckable(true);
-    getConnectButton().setText(mDisconnectButtonText);
+    mConnectButton->setCheckable(true);
+    mConnectButton->setText(mDisconnectButtonText);
 
-    getFlashButton().setCheckable(true);
-    getStartButton().setText(mStartButtonText);
-    getStartButton().setCheckable(true);
+    mFlashButton->setCheckable(true);
+    mStartStopButton->setText(mStartStopButtonText);
+    mStartStopButton->setCheckable(true);
 }
 
 void ControlButtons::setButtonsForRunning() {
-    getConnectButton().setCheckable(false);
-    getConnectButton().setText(mDisconnectButtonText);
-    getFlashButton().setCheckable(false);
+    mConnectButton->setCheckable(false);
+    mConnectButton->setText(mDisconnectButtonText);
+    mFlashButton->setCheckable(false);
 
-    getStartButton().setCheckable(true);
-    getStartButton().setText(mStopButtonText);
+    mStartStopButton->setCheckable(true);
+    mStartStopButton->setText(mStopButtonText);
 }
 
 void ControlButtons::setButtonsForFlashing() {
-    getConnectButton().setCheckable(false);
-    getConnectButton().setText(mDisconnectButtonText);
+    mConnectButton->setCheckable(false);
+    mConnectButton->setText(mDisconnectButtonText);
 
-    getFlashButton().setCheckable(false);
-    getStartButton().setCheckable(false);
+    mFlashButton->setCheckable(false);
+    mStartStopButton->setCheckable(false);
 }
 
 void ControlButtons::setButtonsForNotConnected() {
-    getConnectButton().setCheckable(true);
-    getConnectButton().setText(mConnectButtonText);
+    mConnectButton->setCheckable(true);
+    mConnectButton->setText(mConnectButtonText);
 
-    getFlashButton().setCheckable(false);
+    mFlashButton->setCheckable(false);
 
-    getStartButton().setCheckable(false);
-    getStartButton().setText(mStartButtonText);
-}
-
-
-QAbstractButton &ControlButtons::getConnectButton() {
-    return *(mButtons.button(static_cast<int>(Buttons::CONNECT)));
-}
-
-QAbstractButton &ControlButtons::getFlashButton() {
-    return *(mButtons.button(static_cast<int>(Buttons::FLASH)));
-}
-
-QAbstractButton &ControlButtons::getStartButton() {
-    return *(mButtons.button(static_cast<int>(Buttons::STOP_START)));
+    mStartStopButton->setCheckable(false);
+    mStartStopButton->setText(mStartStopButtonText);
 }

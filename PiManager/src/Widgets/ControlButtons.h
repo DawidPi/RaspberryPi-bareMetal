@@ -6,7 +6,7 @@
 #define PIMANAGER_CONTROLBUTTONS_H
 
 #include <QtWidgets/QWidget>
-#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QPushButton>
 
 //todo add documentation
 
@@ -15,9 +15,10 @@ Q_OBJECT
 public:
     ControlButtons();
 
-    enum class Buttons {
-        STOP_START, FLASH, CONNECT
-    };
+    ControlButtons(const ControlButtons &rhs) = delete;
+
+    ControlButtons(ControlButtons &&rhs) = delete;
+
     enum class States {
         NOT_CONNECTED, CONNECTED, RUNNING, FLASHING
     };
@@ -25,30 +26,21 @@ public:
     void setNewStatus(States newState);
 
 private:
-    void clearAllButtons();
 
-    //todo check if it automatically handles freeing resources
-    QButtonGroup mButtons;
+    QPushButton *mConnectButton;
+    QPushButton *mStartStopButton;
+    QPushButton *mFlashButton;
 
-    const QString mStartButtonText = "START";
+    const QString mStartStopButtonText = "START";
     const QString mStopButtonText = "STOP";
     const QString mFlashButtonText = "FLASH";
     const QString mConnectButtonText = "CONNECT";
     const QString mDisconnectButtonText = "DISCONNECT";
 
     void setButtonsForConnected();
-
     void setButtonsForRunning();
-
     void setButtonsForFlashing();
-
     void setButtonsForNotConnected();
-
-    QAbstractButton &getConnectButton();
-
-    QAbstractButton &getFlashButton();
-
-    QAbstractButton &getStartButton();
 };
 
 
