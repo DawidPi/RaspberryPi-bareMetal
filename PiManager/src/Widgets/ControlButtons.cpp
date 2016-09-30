@@ -4,14 +4,14 @@
 
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QBoxLayout>
-#include "ControlButtons.h"
+#include "ControlButtons.hpp"
 
 ControlButtons::ControlButtons(QWidget *parent) : QWidget(parent) {
     mStartStopButton = (new QPushButton(mStartStopButtonText));
     mConnectButton = (new QPushButton(mConnectButtonText));
     mFlashButton = (new QPushButton(mFlashButtonText));
 
-    QBoxLayout *horizontalBoxLayout = new QBoxLayout(QBoxLayout::LeftToRight);
+    auto *horizontalBoxLayout = new QBoxLayout(QBoxLayout::LeftToRight);
 
     horizontalBoxLayout->addWidget(mConnectButton);
     horizontalBoxLayout->addWidget(mStartStopButton);

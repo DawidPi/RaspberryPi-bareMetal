@@ -2,7 +2,7 @@
 // Created by Dawid on 04.09.2016.
 //
 #include <QApplication>
-#include "Widgets/PiManagerWindow.h"
+#include "Widgets/PiManagerWindow.hpp"
 
 
 int main(int argv, char **argc) {

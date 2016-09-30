@@ -6,7 +6,8 @@
 #define PIMANAGER_PIMANAGERWINDOW_H
 
 #include <QMainWindow>
-#include "ControlButtons.h"
+#include "ControlButtons.hpp"
+#include "FunctionsWidget.hpp"
 
 class PiManagerWindow : public QMainWindow {
 Q_OBJECT
@@ -14,7 +15,7 @@ public:
     PiManagerWindow();
 
 private:
-    ControlButtons *mRaspberryControlButtons;
+    void setUpWidget(FunctionsWidget *mFunctionsView, ControlButtons *raspberryControlButtons);
 };
 
 
