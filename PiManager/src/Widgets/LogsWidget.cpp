@@ -5,8 +5,8 @@
 #include <QtWidgets/QVBoxLayout>
 #include "LogsWidget.hpp"
 
-LogsWidget::LogsWidget(QWidget *parent) :
-        QWidget(parent) {
+LogsWidget::LogsWidget(const FunctionLogsMap &functionsLog, QWidget *parent) :
+        QWidget(parent), mMap(functionsLog) {
     setUpWidget();
 }
 
@@ -19,28 +19,28 @@ void LogsWidget::setUpWidget() {
     setLayout(layout);
 }
 
-void LogsWidget::registerFunction(QTreeWidgetItem *functionItem) {
-    if (functionNotAppended(functionItem))
-        appendFunction(functionItem);
-}
+//void LogsWidget::registerFunction(QTreeWidgetItem *functionItem) {
+//    if (functionNotAppended(functionItem))
+//        appendFunction(functionItem);
+//}
 
-void LogsWidget::appendFunction(QTreeWidgetItem *functionItem) {
-    mMap.insert(functionItem, QStringList());
-}
-
-bool LogsWidget::functionNotAppended(QTreeWidgetItem *functionItem) {
-    return mMap.find(functionItem) == mMap.end();
-}
-
-void LogsWidget::appendLogToFunction(QTreeWidgetItem *functionItem, const QString &log) {
-    registerFunction(functionItem);
-    mMap[functionItem].append(log);
-}
-
-void LogsWidget::appendLogsToFunction(QTreeWidgetItem *functionItem, const QStringList &logs) {
-    registerFunction(functionItem);
-    mMap[functionItem].append(logs);
-}
+//void LogsWidget::appendFunction(QTreeWidgetItem *functionItem) {
+//    mMap.insert(functionItem, QStringList());
+//}
+//
+//bool LogsWidget::functionNotAppended(QTreeWidgetItem *functionItem) {
+//    return mMap.find(functionItem) == mMap.end();
+//}
+//
+//void LogsWidget::appendLogToFunction(QTreeWidgetItem *functionItem, const QString &log) {
+//    registerFunction(functionItem);
+//    mMap[functionItem].append(log);
+//}
+//
+//void LogsWidget::appendLogsToFunction(QTreeWidgetItem *functionItem, const QStringList &logs) {
+//    registerFunction(functionItem);
+//    mMap[functionItem].append(logs);
+//}
 
 void LogsWidget::displayLogsFromFunction(QTreeWidgetItem *functionItem) {
     mTextWidget->clear();

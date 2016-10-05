@@ -6,6 +6,7 @@
 #define PIMANAGER_PIMANAGERWINDOW_H
 
 #include <QMainWindow>
+#include <Common/FunctionsTreeManager.hpp>
 #include "ControlButtons.hpp"
 #include "FunctionsWidget.hpp"
 
@@ -15,7 +16,10 @@ public:
     PiManagerWindow();
 
 private:
+    FunctionsTreeManager mFunctionsManager;
     void setUpWidget(FunctionsWidget *mFunctionsView, ControlButtons *raspberryControlButtons);
+
+    void disableCloseButton(QDockWidget *dockFunctionsWidget) const;
 };
 
 

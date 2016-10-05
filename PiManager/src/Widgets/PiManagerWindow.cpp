@@ -23,14 +23,25 @@ void PiManagerWindow::setUpWidget(FunctionsWidget *mFunctionsView, ControlButton
     auto *dockFunctionsWidget = new QDockWidget;
     auto *dockControlButtons = new QDockWidget;
     dockFunctionsWidget->setWidget(mFunctionsView);
+
     addDockWidget(Qt::LeftDockWidgetArea, dockFunctionsWidget);
-    horizontalLayout->addWidget(new LogsWidget);
+    disableCloseButton(dockFunctionsWidget);
+
+    horizontalLayout->addWidget(new LogsWidget(mFunctionsManager.getData()));
     verticalLayout->addLayout(horizontalLayout);
     dockControlButtons->setWidget(raspberryControlButtons);
+
     addDockWidget(Qt::BottomDockWidgetArea, dockControlButtons);
+    disableCloseButton(dockControlButtons);
 
     auto *mainWidget = new QWidget;
     mainWidget->setLayout(verticalLayout);
 
     setCentralWidget(mainWidget);
+}
+
+void PiManagerWindow::disableCloseButton(QDockWidget *dockFunctionsWidget) const {
+    dockFunctionsWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    //dockFunctionsWidget->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
+    dockFunctionsWidget->setFeatures(0);
 }
