@@ -10,9 +10,19 @@
 #include "ControlButtons.hpp"
 #include "FunctionsWidget.hpp"
 
+/*!
+ * Represents Application's main window, which contains logs and settings for RaspberryPi communication
+ */
 class PiManagerWindow : public QMainWindow {
 Q_OBJECT
 public:
+    PiManagerWindow(const PiManagerWindow &rhs) = delete;
+
+    PiManagerWindow(const PiManagerWindow &&rhs) = delete;
+
+    /*!
+     * Default constructor
+     */
     PiManagerWindow();
 
 private:

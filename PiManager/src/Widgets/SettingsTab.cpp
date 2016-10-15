@@ -6,7 +6,6 @@
 #include "SettingsTab.hpp"
 #include "SerialPortsComboBox.hpp"
 #include "FileWidget.hpp"
-#include <QtWidgets/QLineEdit>
 
 SettingsTab::SettingsTab(QWidget *parent) {
     auto *layout = new QFormLayout(this);
@@ -18,4 +17,8 @@ SettingsTab::SettingsTab(QWidget *parent) {
     layout->addRow("PC Port: ", new SerialPortsComboBox);
 
     setLayout(layout);
+}
+
+void SettingsTab::enable(bool enabled) {
+    Q_EMIT changeEnable(enabled);
 }

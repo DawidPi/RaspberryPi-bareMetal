@@ -9,9 +9,23 @@
 #include <QtWidgets/QWidget>
 #include "LogsWidget.hpp"
 
+/*!
+ * Represents Widget with logs
+ */
 class LogsTab : public QWidget {
 public:
-    LogsTab(const LogsWidget::FunctionLogsMap &logs, QWidget *parent = 0);
+    LogsTab(const LogsTab &rhs) = delete;
+
+    LogsTab(const LogsTab &&rhs) = delete;
+
+    /*!
+     * Default Qt-like constructor
+     * @param logs reference to map, which containts functionItem -> logs maps.
+     * @param parent Qt-like pointer to parent argument
+     */
+    LogsTab(const LogsWidget::FunctionLogsMap &logs, QWidget *parent = nullptr);
+
+    ~LogsTab() = default;
 };
 
 

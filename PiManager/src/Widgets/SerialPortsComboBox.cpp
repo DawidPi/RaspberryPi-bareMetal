@@ -6,7 +6,7 @@
 #include <QtSerialPort/QSerialPortInfo>
 
 SerialPortsComboBox::SerialPortsComboBox(QWidget *parent) : QComboBox(parent) {
-    setUpWidget();
+    connectSignals();
     createTimer();
     updateComPorts();
 }
@@ -22,17 +22,34 @@ void SerialPortsComboBox::createTimer() {
 void SerialPortsComboBox::updateComPorts() {
     clear();
     mCurrentlyAvailablePorts.clear();
+
+    if (QSerialPortInfo::availablePorts().size() == 0) {
+        disconnectSignals();
+        return;
+    }
+
+    connectSignals();
     for (auto &port : QSerialPortInfo::availablePorts()) {
         addItem(port.portName());
         mCurrentlyAvailablePorts.append(port.portName());
     }
 }
 
-void SerialPortsComboBox::setUpWidget() {
+void SerialPortsComboBox::connectSignals() {
+    connect(this, SIGNAL(activated(int)), this, SLOT(onItemSelected(int)));
     connect(this, SIGNAL(activated(int)), this, SLOT(onItemSelected(int)));
 }
 
 void SerialPortsComboBox::onItemSelected(int portNum) {
     Q_EMIT(comPortSelected(portNum));
     Q_EMIT(comPortSelected(mCurrentlyAvailablePorts.at(portNum)));
+}
+
+void SerialPortsComboBox::disconnectSignals() {
+    disconnect(this, SIGNAL(activated(int)), this, SLOT(onItemSelected(int)));
+    disconnect(this, SIGNAL(activated(int)), this, SLOT(onItemSelected(int)));
+}
+
+void SerialPortsComboBox::enable(bool enabled) {
+    setEnabled(enabled);
 }

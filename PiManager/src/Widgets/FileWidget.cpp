@@ -9,7 +9,7 @@
 
 
 FileWidget::FileWidget(QWidget *parent)
-        : QWidget(parent) {
+        : QWidget(parent), mFilePathWidget(new QLineEdit) {
 
     auto *layout = new QHBoxLayout(this);
     setFileText(layout);
@@ -25,7 +25,10 @@ void FileWidget::setChooseFileButton(QLayout *layout) {
 }
 
 void FileWidget::setFileText(QLayout *layout) {
-    auto *fileText = new QLineEdit;
-    layout->addWidget(fileText);
+    layout->addWidget(mFilePathWidget);
+}
+
+QString FileWidget::getFilePath() const {
+    return mFilePathWidget->text();
 }
 

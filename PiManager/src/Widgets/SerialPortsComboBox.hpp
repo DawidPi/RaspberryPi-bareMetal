@@ -9,18 +9,36 @@
 #include <QtWidgets/QComboBox>
 #include <QtCore/QTimer>
 
+/*!
+ * Represents comboBox with values of available serial ports available in PC
+ */
 class SerialPortsComboBox : public QComboBox {
 Q_OBJECT
     const unsigned int updateIntervalMs = 500;
 public:
+    /*!
+     * Default Qt-like constructor, which takes parent as an argument
+     *
+     * @param Qt-like parent pointer
+     */
     SerialPortsComboBox(QWidget *parent = nullptr);
 
+    /*!
+     * Signal emitted, when Com port gets selected. Com port represented as int number
+     */
     Q_SIGNAL void comPortSelected(int portNumber);
 
+    /*!
+     * Signal emitted, when Com port gets selected. Com port represented as string e.g. "COM0"
+     */
     Q_SIGNAL void comPortSelected(const QString &portName);
 
+    /*!
+     * Slot for managing enable/disable flag for widget.
+     */
+    Q_SLOT void enable(bool enabled);
+
 private:
-    QComboBox *mComboBox;
     QVector<QString> mCurrentlyAvailablePorts;
     Q_SLOT void onItemSelected(int);
 
@@ -30,7 +48,9 @@ private:
 
     void createTimer();
 
-    void setUpWidget();
+    void connectSignals();
+
+    void disconnectSignals();
 };
 
 
