@@ -7,6 +7,9 @@
 #include <QtWidgets/QVBoxLayout>
 #include "PiManagerWindow.hpp"
 #include "LogsWidget.hpp"
+#include "LogsTab.hpp"
+#include "SerialPortsComboBox.hpp"
+#include "SettingsTab.hpp"
 #include <QtWidgets/QDockWidget>
 
 PiManagerWindow::PiManagerWindow() {
@@ -14,34 +17,23 @@ PiManagerWindow::PiManagerWindow() {
     auto *raspberryControlButtons = new ControlButtons(0);
 
     setUpWidget(mFunctionsView, raspberryControlButtons);
-
 }
 
 void PiManagerWindow::setUpWidget(FunctionsWidget *mFunctionsView, ControlButtons *raspberryControlButtons) {
-    auto *verticalLayout = new QVBoxLayout;
-    auto *horizontalLayout = new QHBoxLayout;
-    auto *dockFunctionsWidget = new QDockWidget;
     auto *dockControlButtons = new QDockWidget;
-    dockFunctionsWidget->setWidget(mFunctionsView);
+    auto *tabWidget = new QTabWidget;
 
-    addDockWidget(Qt::LeftDockWidgetArea, dockFunctionsWidget);
-    disableCloseButton(dockFunctionsWidget);
+    tabWidget->addTab(new LogsTab(mFunctionsManager.getData()), "Logs");
+    tabWidget->addTab(new SettingsTab, "Settings");
 
-    horizontalLayout->addWidget(new LogsWidget(mFunctionsManager.getData()));
-    verticalLayout->addLayout(horizontalLayout);
+    setCentralWidget(tabWidget);
     dockControlButtons->setWidget(raspberryControlButtons);
 
     addDockWidget(Qt::BottomDockWidgetArea, dockControlButtons);
     disableCloseButton(dockControlButtons);
-
-    auto *mainWidget = new QWidget;
-    mainWidget->setLayout(verticalLayout);
-
-    setCentralWidget(mainWidget);
 }
 
 void PiManagerWindow::disableCloseButton(QDockWidget *dockFunctionsWidget) const {
     dockFunctionsWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    //dockFunctionsWidget->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
     dockFunctionsWidget->setFeatures(0);
 }

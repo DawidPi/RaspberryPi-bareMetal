@@ -25,7 +25,7 @@ public:
      * Constructor
      * @param Qt style parent (see documentation of QWidget)
      */
-    FunctionsWidget(QWidget *parent);
+    FunctionsWidget(QWidget *parent = nullptr);
 
     FunctionsWidget(const FunctionsWidget &rhs) = delete;
 

@@ -11,11 +11,20 @@ set(SOURCES
         ControlButtons.hpp
         FunctionsWidget.cpp
         FunctionsWidget.hpp
+        LogsTab.cpp
+        LogsTab.hpp
         LogsWidget.cpp
-        LogsWidget.hpp)
+        LogsWidget.hpp
+        SettingsTab.cpp
+        SettingsTab.hpp
+        SerialPortsComboBox.cpp
+        SerialPortsComboBox.hpp
+        FileWidget.cpp
+        FileWidget.hpp)
 
 include_directories(../)
 
 add_library(${PROJECT_NAME} ${SOURCES})
 add_dependencies(${PROJECT_NAME} Common)
-target_link_libraries(${PROJECT_NAME} Qt5::Widgets Common)
+qt5_use_modules(${PROJECT_NAME} Widgets Core SerialPort)
+target_link_libraries(${PROJECT_NAME} Common)
