@@ -10,14 +10,11 @@
 class FileWidget : public QWidget {
 Q_OBJECT
 public:
-    FileWidget(const QString &title, QWidget *parent = nullptr);
+    FileWidget(QWidget *parent = nullptr);
 
 private:
     void setFileText(QLayout *layout);
-
     void setChooseFileButton(QLayout *layout);
-
-    void setTitle(QLayout *layout, const QString &title);
 };
 
 

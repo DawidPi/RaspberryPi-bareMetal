@@ -9,7 +9,8 @@ int main(int argv, char **argc) {
     QApplication app(argv, argc);
 
     PiManagerWindow raspberryWindow;
-    raspberryWindow.show();
+    raspberryWindow.setWindowState(raspberryWindow.windowState());
+    raspberryWindow.showMaximized();
 
     return app.exec();
 }

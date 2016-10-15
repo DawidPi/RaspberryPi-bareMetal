@@ -9,7 +9,7 @@
 #include <QtWidgets/QComboBox>
 #include <QtCore/QTimer>
 
-class SerialPortsComboBox : public QWidget {
+class SerialPortsComboBox : public QComboBox {
 Q_OBJECT
     const unsigned int updateIntervalMs = 500;
 public:

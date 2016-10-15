@@ -41,37 +41,37 @@ void ControlButtons::setNewStatus(ControlButtons::States newState) {
 }
 
 void ControlButtons::setButtonsForConnected() {
-    mConnectButton->setCheckable(true);
+    mConnectButton->setEnabled(true);
     mConnectButton->setText(mDisconnectButtonText);
 
-    mFlashButton->setCheckable(true);
+    mFlashButton->setEnabled(true);
     mStartStopButton->setText(mStartStopButtonText);
-    mStartStopButton->setCheckable(true);
+    mStartStopButton->setEnabled(true);
 }
 
 void ControlButtons::setButtonsForRunning() {
-    mConnectButton->setCheckable(false);
+    mConnectButton->setEnabled(false);
     mConnectButton->setText(mDisconnectButtonText);
-    mFlashButton->setCheckable(false);
+    mFlashButton->setEnabled(false);
 
-    mStartStopButton->setCheckable(true);
+    mStartStopButton->setEnabled(true);
     mStartStopButton->setText(mStopButtonText);
 }
 
 void ControlButtons::setButtonsForFlashing() {
-    mConnectButton->setCheckable(false);
+    mConnectButton->setEnabled(false);
     mConnectButton->setText(mDisconnectButtonText);
 
-    mFlashButton->setCheckable(false);
-    mStartStopButton->setCheckable(false);
+    mFlashButton->setEnabled(false);
+    mStartStopButton->setEnabled(false);
 }
 
 void ControlButtons::setButtonsForNotConnected() {
-    mConnectButton->setCheckable(true);
+    mConnectButton->setEnabled(true);
     mConnectButton->setText(mConnectButtonText);
 
-    mFlashButton->setCheckable(false);
+    mFlashButton->setEnabled(false);
 
-    mStartStopButton->setCheckable(false);
+    mStartStopButton->setEnabled(false);
     mStartStopButton->setText(mStartStopButtonText);
 }

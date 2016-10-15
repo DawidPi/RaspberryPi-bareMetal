@@ -5,7 +5,7 @@
 #include "SerialPortsComboBox.hpp"
 #include <QtSerialPort/QSerialPortInfo>
 
-SerialPortsComboBox::SerialPortsComboBox(QWidget *parent) : QWidget(parent) {
+SerialPortsComboBox::SerialPortsComboBox(QWidget *parent) : QComboBox(parent) {
     setUpWidget();
     createTimer();
     updateComPorts();
@@ -20,17 +20,16 @@ void SerialPortsComboBox::createTimer() {
 }
 
 void SerialPortsComboBox::updateComPorts() {
-    mComboBox->clear();
+    clear();
     mCurrentlyAvailablePorts.clear();
     for (auto &port : QSerialPortInfo::availablePorts()) {
-        mComboBox->addItem(port.portName());
+        addItem(port.portName());
         mCurrentlyAvailablePorts.append(port.portName());
     }
 }
 
 void SerialPortsComboBox::setUpWidget() {
-    mComboBox = new QComboBox(this);
-    connect(mComboBox, SIGNAL(activated(int)), this, SLOT(onItemSelected(int)));
+    connect(this, SIGNAL(activated(int)), this, SLOT(onItemSelected(int)));
 }
 
 void SerialPortsComboBox::onItemSelected(int portNum) {
