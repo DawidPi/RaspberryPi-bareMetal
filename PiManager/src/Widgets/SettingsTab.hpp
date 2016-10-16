@@ -7,6 +7,10 @@
 
 
 #include <QtWidgets/QWidget>
+#include <Common/SettingsManager.hpp>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QFormLayout>
+#include "SerialPortsComboBox.hpp"
 
 /*!
  * Widget, which contains all the settings needed for communiacting with RaspberryPi
@@ -33,7 +37,28 @@ public:
     ~SettingsTab() = default;
 
 private:
+    SettingsManager mPersonalSettingsValidator;
+    QVBoxLayout *mLayout;
+    QLineEdit *mErrorLine = nullptr;
+    SerialPortsComboBox *mSerialPortComboBox;
+
+    Q_SLOT void addr2LineChanged(const QString &newPath);
+
+    Q_SLOT void executablePathChanged(const QString &newPath);
+
+    Q_SLOT void serialPortNameChanged(const QString &newSerialPortName);
+
+    Q_SLOT void fakeTimerSlot();
+
+    Q_SLOT void settingsInvalid(const QString &member, const QString &reason);
+
     Q_SIGNAL void changeEnable(bool);
+
+    void setUpWidget();
+
+    void setUpValidator();
+
+    void deleteErrorMessage();
 };
 
 

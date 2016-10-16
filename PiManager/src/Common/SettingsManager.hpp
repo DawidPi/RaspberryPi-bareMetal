@@ -9,7 +9,7 @@
 #include <QtCore/QObject>
 #include <QtSerialPort/QSerialPortInfo>
 
-class SettingsManager : QObject {
+class SettingsManager : public QObject {
 Q_OBJECT
 public:
     bool validateSettings() const;

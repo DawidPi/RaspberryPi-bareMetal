@@ -85,18 +85,12 @@ const QString &SettingsManager::getExecutablePath() const {
 
 void SettingsManager::setSerialPort(const QString &portName) {
     mSerialPortName = portName;
-    if (!validatePortName());
-    mSerialPortName = "";
 }
 
 void SettingsManager::setRaspberryPiExecutablePath(const QString &path) {
     mExecutablePath = path;
-    if (!validateExecutablePath());
-    mExecutablePath = "";
 }
 
 void SettingsManager::setAddr2linePath(const QString &path) {
     mAddr2LinePath = path;
-    if (!validateAddr2LinePath());
-    mAddr2LinePath = "";
 }

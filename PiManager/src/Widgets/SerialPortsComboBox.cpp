@@ -8,6 +8,8 @@ SerialPortsComboBox::SerialPortsComboBox(QWidget *parent) : QComboBox(parent) {
     connectSignals();
     createTimer();
     updateComPorts();
+    if (mCurrentlyAvailablePorts.size())
+        setCurrentIndex(0);
 }
 
 void SerialPortsComboBox::createTimer() {
@@ -51,4 +53,8 @@ void SerialPortsComboBox::disconnectSignals() {
 
 void SerialPortsComboBox::enable(bool enabled) {
     setEnabled(enabled);
+}
+
+QString SerialPortsComboBox::getChosenSerialPort() {
+    return currentText();
 }

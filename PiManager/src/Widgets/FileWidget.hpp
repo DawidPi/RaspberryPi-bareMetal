@@ -28,6 +28,8 @@ public:
      */
     FileWidget(const QString &extensions = QString(), QWidget *parent = nullptr);
 
+    Q_SIGNAL void filePathChanged(const QString &newPath);
+
     /*!
      * allows for returning string, which represents a path to the file chosen by user
      * @return QString object, which represents path to the chosen file.
@@ -41,6 +43,8 @@ private:
     QString mExtensions;
 
     Q_SLOT void chooseFileButtonPressed();
+
+    Q_SLOT void internalFilePathChanged(const QString &);
 
     void setFileText(QLayout *layout);
     void setChooseFileButton(QLayout *layout);

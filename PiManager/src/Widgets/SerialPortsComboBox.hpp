@@ -24,6 +24,8 @@ public:
      */
     SerialPortsComboBox(QWidget *parent = nullptr);
 
+    QString getChosenSerialPort();
+
     /*!
      * Signal emitted, when Com port gets selected. Com port represented as int number
      */
@@ -47,6 +49,7 @@ private:
     //implementation of changes in ports
     Q_SLOT void updateComPorts();
 
+    int mCurrentItem = 0;
     void createTimer();
     void connectSignals();
     void disconnectSignals();
