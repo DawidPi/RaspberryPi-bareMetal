@@ -12,8 +12,8 @@ SettingsTab::SettingsTab(QWidget *parent) {
 
     layout->setVerticalSpacing(2 * layout->verticalSpacing());
     layout->setMargin(2 * layout->margin());
-    layout->addRow("Binary file: ", new FileWidget);
-    layout->addRow("Translator exe: ", new FileWidget);
+    layout->addRow("Binary file: ", new FileWidget("RPI binary (*.hex)"));
+    layout->addRow("Translator exe: ", new FileWidget("Executable (*.exe)"));
     layout->addRow("PC Port: ", new SerialPortsComboBox);
 
     setLayout(layout);

@@ -25,6 +25,7 @@ public:
      */
     PiManagerWindow();
 
+
 private:
     FunctionsTreeManager mFunctionsManager;
     void setUpWidget(FunctionsWidget *mFunctionsView, ControlButtons *raspberryControlButtons);

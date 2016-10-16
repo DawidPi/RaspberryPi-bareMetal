@@ -3,7 +3,6 @@
 //
 
 #include "SerialPortsComboBox.hpp"
-#include <QtSerialPort/QSerialPortInfo>
 
 SerialPortsComboBox::SerialPortsComboBox(QWidget *parent) : QComboBox(parent) {
     connectSignals();

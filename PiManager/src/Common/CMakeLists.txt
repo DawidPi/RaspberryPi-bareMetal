@@ -6,7 +6,8 @@ CONFIGURE_QT5()
 
 set(SOURCES
         FunctionsTreeManager.cpp
-        )
+        ConnectionHandler.cpp ConnectionHandler.hpp SettingsManager.cpp SettingsManager.hpp)
 
 add_library(${PROJECT_NAME} ${SOURCES})
-target_link_libraries(${PROJECT_NAME} Qt5::Widgets)
+qt5_use_modules(${PROJECT_NAME} Widgets Core SerialPort)
+target_link_libraries(${PROJECT_NAME})

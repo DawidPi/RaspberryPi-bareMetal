@@ -51,29 +51,43 @@ public:
 
     virtual ~ControlButtons() {};
 
-Q_SIGNALS:
 
     /*!
      * SIGNAL on start Button pressed
      */
-    void startButtonPressed();
+    Q_SIGNAL void startButtonPressed();
 
     /*!
      * SIGNAL on stop Button pressed
      */
-    void stopButtonPressed();
+    Q_SIGNAL void stopButtonPressed();
 
     /*!
      * SIGNAL on flash Button pressed
      */
-    void flashButtonPressed();
+    Q_SIGNAL void flashButtonPressed();
 
     /*!
      * SIGNAL on connect Button pressed
      */
-    void connectButtonPressed();
+    Q_SIGNAL void connectButtonPressed();
+
+
+    Q_SLOT void connectionLost();
+
+    Q_SLOT void commandFailed();
+
+    Q_SLOT void flashingFinished(bool successful);
 
 private:
+
+    States mCurrentState;
+
+    Q_SLOT void internalConnectPressed();
+
+    Q_SLOT void internalFlashPressed();
+
+    Q_SLOT void internalStartStopPressed();
 
     QPushButton *mConnectButton;
     QPushButton *mStartStopButton;

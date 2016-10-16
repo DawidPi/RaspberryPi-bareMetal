@@ -8,6 +8,7 @@
 
 #include <QtWidgets/QComboBox>
 #include <QtCore/QTimer>
+#include <QtSerialPort/QSerialPortInfo>
 
 /*!
  * Represents comboBox with values of available serial ports available in PC
@@ -47,9 +48,7 @@ private:
     Q_SLOT void updateComPorts();
 
     void createTimer();
-
     void connectSignals();
-
     void disconnectSignals();
 };
 

@@ -20,6 +20,7 @@ public:
 
     /*!
      *  Constructor for this widget
+     * @param functionsLog reference to the container on logs
      * @param parent Qt parent pointer. Please refer to Qt documentation
      */
     LogsWidget(const FunctionLogsMap &functionsLog, QWidget *parent = 0);

@@ -11,6 +11,7 @@
 #include "SerialPortsComboBox.hpp"
 #include "SettingsTab.hpp"
 #include <QtWidgets/QDockWidget>
+#include <QtCore/QEvent>
 
 PiManagerWindow::PiManagerWindow() {
     auto *mFunctionsView = new FunctionsWidget(0);
@@ -31,6 +32,9 @@ void PiManagerWindow::setUpWidget(FunctionsWidget *mFunctionsView, ControlButton
 
     addDockWidget(Qt::BottomDockWidgetArea, dockControlButtons);
     disableCloseButton(dockControlButtons);
+    auto *emptyWidget = new QWidget(this);
+    dockControlButtons->setTitleBarWidget(emptyWidget);
+    dockControlButtons->topLevelWidget()->setContextMenuPolicy(Qt::NoContextMenu);
 }
 
 void PiManagerWindow::disableCloseButton(QDockWidget *dockFunctionsWidget) const {

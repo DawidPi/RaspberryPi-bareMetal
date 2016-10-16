@@ -4,6 +4,7 @@
 
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QBoxLayout>
+#include <QtWidgets/QMessageBox>
 #include "ControlButtons.hpp"
 
 ControlButtons::ControlButtons(QWidget *parent) : QWidget(parent) {
@@ -23,6 +24,8 @@ ControlButtons::ControlButtons(QWidget *parent) : QWidget(parent) {
 }
 
 void ControlButtons::setNewStatus(ControlButtons::States newState) {
+
+    mCurrentState = newState;
 
     switch (newState) {
         case States::CONNECTED:
@@ -74,4 +77,64 @@ void ControlButtons::setButtonsForNotConnected() {
 
     mStartStopButton->setEnabled(false);
     mStartStopButton->setText(mStartStopButtonText);
+}
+
+void ControlButtons::internalConnectPressed() {
+    Q_EMIT connectButtonPressed();
+}
+
+void ControlButtons::internalFlashPressed() {
+    Q_EMIT flashButtonPressed();
+}
+
+void ControlButtons::internalStartStopPressed() {
+    if (mCurrentState == States::RUNNING)
+            Q_EMIT stopButtonPressed();
+    else
+            Q_EMIT startButtonPressed();
+}
+
+void ControlButtons::connectionLost() {
+    if (mCurrentState == States::FLASHING) {
+        flashingFinished(false);
+        return;
+    }
+
+    QMessageBox warningMsg;
+    warningMsg.setWindowTitle("Connection failed");
+    warningMsg.setText("Connection with RaspberryPi failed!");
+    warningMsg.setDetailedText(
+            "There is wrong serial connection selected to it or no apropriate bootlaoder is installed.");
+    warningMsg.setIcon(QMessageBox::Information);
+    warningMsg.setStandardButtons(QMessageBox::Ok);
+    warningMsg.exec();
+
+    setNewStatus(States::NOT_CONNECTED);
+}
+
+void ControlButtons::commandFailed() {
+    QMessageBox warningMsg;
+    warningMsg.setWindowTitle("Communication failed");
+    warningMsg.setText("Some command was not answered by Raspberry Pi");
+    warningMsg.setDetailedText("Connection to the Raspberry Pi was lost.");
+    warningMsg.setIcon(QMessageBox::Information);
+    warningMsg.setStandardButtons(QMessageBox::Ok);
+    warningMsg.exec();
+
+    setNewStatus(States::NOT_CONNECTED);
+}
+
+void ControlButtons::flashingFinished(bool successful) {
+
+    if (!successful) {
+        QMessageBox warningMsg;
+        warningMsg.setWindowTitle("Flashing failed");
+        warningMsg.setText("Flashing failed. Please try again.");
+        warningMsg.setDetailedText("Flashing failed. Probably connection was lost. Please try again!");
+        warningMsg.setIcon(QMessageBox::Information);
+        warningMsg.setStandardButtons(QMessageBox::Ok);
+        warningMsg.exec();
+    }
+
+    setNewStatus(States::CONNECTED);
 }

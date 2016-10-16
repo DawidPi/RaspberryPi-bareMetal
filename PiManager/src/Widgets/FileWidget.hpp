@@ -7,6 +7,7 @@
 
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QAbstractButton>
 
 /*!
  * Allows user for convenient choosing file from hard-drive
@@ -21,9 +22,11 @@ public:
     /*!
      * Default Qt-like constructor
      *
+     * @param extensions filter for file extension.
+     *              Unfortunatelly for some reason does not work in current Qt
      * @param parent default Qt-like argument for all QtWidgets' constructors
      */
-    FileWidget(QWidget *parent = nullptr);
+    FileWidget(const QString &extensions = QString(), QWidget *parent = nullptr);
 
     /*!
      * allows for returning string, which represents a path to the file chosen by user
@@ -34,6 +37,10 @@ public:
     ~FileWidget() = default;
 private:
     QLineEdit *mFilePathWidget;
+    QAbstractButton *mFileChooseButton;
+    QString mExtensions;
+
+    Q_SLOT void chooseFileButtonPressed();
 
     void setFileText(QLayout *layout);
     void setChooseFileButton(QLayout *layout);
