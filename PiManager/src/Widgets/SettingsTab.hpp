@@ -59,6 +59,8 @@ private:
     void setUpValidator();
 
     void deleteErrorMessage();
+
+    void setUpErrorStyleSheet();
 };
 
 

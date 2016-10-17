@@ -42,7 +42,7 @@ bool SettingsManager::validateExecutablePath() const {
         return false;
     }
 
-    if (file.isReadable()) {
+    if (!file.isReadable()) {
         Q_EMIT settingsInvalid(mRaspberryExecutableMemberName, mMissingPermissions);
         return false;
     }

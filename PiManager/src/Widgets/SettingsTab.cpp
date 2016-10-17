@@ -7,7 +7,8 @@
 
 SettingsTab::SettingsTab(QWidget *parent) : QWidget(parent),
                                             mLayout(new QVBoxLayout(this)),
-                                            mSerialPortComboBox(new SerialPortsComboBox) {
+                                            mSerialPortComboBox(new SerialPortsComboBox),
+                                            mErrorLine(new QLineEdit) {
     setUpWidget();
     setUpValidator();
 }
@@ -17,14 +18,17 @@ void SettingsTab::setUpWidget() {
     auto *raspberryBinaryFile = new FileWidget("RPI binary (*.hex)");
     auto *addr2LineFilePath = new FileWidget("Executable (*.exe)");
 
+    setUpErrorStyleSheet();
+
     auto *formLayout = new QFormLayout;
     formLayout->setVerticalSpacing(2 * formLayout->verticalSpacing());
     formLayout->setMargin(2 * formLayout->margin());
     formLayout->addRow("Binary file: ", raspberryBinaryFile);
-    formLayout->addRow("Translator exe: ", addr2LineFilePath);
+    formLayout->addRow("Addr2Line exe: ", addr2LineFilePath);
     formLayout->addRow("PC Port: ", mSerialPortComboBox);
 
     mLayout->addLayout(formLayout);
+    mLayout->addWidget(mErrorLine);
 
     connect(raspberryBinaryFile, SIGNAL(filePathChanged(
                                                 const QString&)), this,
@@ -74,20 +78,20 @@ void SettingsTab::serialPortNameChanged(const QString &newSerialPortName) {
 
 void SettingsTab::settingsInvalid(const QString &member, const QString &reason) {
     deleteErrorMessage();
-    mErrorLine = new QLineEdit("ERROR: " + member + " is invalid, because : " + reason);
-    mErrorLine->setStyleSheet("color: #FF0000; border: none");
-    mLayout->addWidget(mErrorLine);
+    auto errorMessage = "ERROR: " + member + " is invalid, because : " + reason;
+    mErrorLine->setText(errorMessage);
 }
 
 void SettingsTab::deleteErrorMessage() {
-    if (mErrorLine)
-        mErrorLine->deleteLater();
-
-    mErrorLine = nullptr;
+    mErrorLine->setText("");
 }
 
 void SettingsTab::fakeTimerSlot() {
     mPersonalSettingsValidator.setSerialPort(mSerialPortComboBox->getChosenSerialPort());
     mPersonalSettingsValidator.validateSettings();
+}
+
+void SettingsTab::setUpErrorStyleSheet() {
+    mErrorLine->setStyleSheet("color: #FF0000; border: none");
 }
 

@@ -18,7 +18,7 @@ FileWidget::FileWidget(const QString &extensions, QWidget *parent)
     layout->setMargin(0);
 
     connect(mFileChooseButton, SIGNAL(clicked()), this, SLOT(chooseFileButtonPressed()));
-    connect(mFilePathWidget, SIGNAL(textEdited(
+    connect(mFilePathWidget, SIGNAL(textChanged(
                                             const QString&)),
             this, SLOT(internalFilePathChanged(
                                const QString&)));
